@@ -6,7 +6,8 @@ import {
   getEmployee,
   getEmployees,
   updateEmployee,
-  deleteEmployee
+  deleteEmployee,
+  getEmployeeNetSalaryWithTaxes
 } from "../controllers/employeeController.js";
 
 const employeeRouter = Router();
@@ -16,5 +17,6 @@ employeeRouter.get("/employees/:id", getEmployee);
 employeeRouter.post("/employees", validateSchema(employeeInsertSchema), insertEmployee);
 employeeRouter.put("/employees/:id", validateSchema(employeeUpdateSchema), updateEmployee);
 employeeRouter.delete("/employees/:id", deleteEmployee);
+employeeRouter.get("/employees/:id/net-salary", getEmployeeNetSalaryWithTaxes)
 
 export default employeeRouter;
