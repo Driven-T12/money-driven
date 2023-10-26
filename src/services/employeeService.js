@@ -1,8 +1,9 @@
+import { notFoundError } from "../errors/errors.js";
 import { employeesRepository } from "../repositories/employeesRepository.js";
 
 export async function getTaxes(id) {
     const employee = await employeesRepository.findById(id);
-    // TODO: lidar com o erro caso o fucionário não exista
+    if (!employee) throw notFoundError("funcionário")
 
     const { grossSalary } = employee;
 
@@ -34,7 +35,7 @@ export async function getTaxes(id) {
     const IRRFDeduction = IRRFRate ? INSSDeductedSalary * (IRRFRate / 100) : 0;
     const IRRFdeductedSalary = INSSDeductedSalary - IRRFDeduction;
 
-    return({
+    return ({
         grossSalary,
         netSalary: IRRFdeductedSalary,
         INSS: {
